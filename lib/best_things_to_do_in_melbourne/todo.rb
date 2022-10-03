@@ -3,11 +3,11 @@ class BestThingsToDoInMelbourne::ToDo
 
   @@all = []
 
-  def self.new_from_index_page(r)
+  def self.new_from_index_page(row)
     new(
-      r.css('div.XfVdV').text.gsub(/[\d.]/, ''),
-      r.css('span.vAUKO').text,
-      r.css('div.biGQs').text
+      row.css('div.XfVdV').text.gsub(/[\d.]/, ''),
+      row.css('span.vAUKO').text,
+      row.css('div.biGQs').text
     )
   end
 

@@ -1,0 +1,3 @@
+class BestThingsToDoInMelbourne::CLI
+
+end

@@ -17,5 +17,5 @@ class BestThingsToDoInMelbourne::Scraper
 
   end
 
-  binding.pry
+  # binding.pry
 end

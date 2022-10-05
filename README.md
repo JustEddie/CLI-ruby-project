@@ -9,7 +9,7 @@
 <img src="https://img.shields.io/badge/rubygems-E9573F?style=for-the-badge&logo=RubyGems&logoColor=white">
 
 
-## used gems
+## Used Gems
 
 * <a href="https://rubygems.org/gems/nokogiri/versions/1.13.8">Nokogiri</a>
 
@@ -19,16 +19,21 @@
 
 * <a href="https://rubygems.org/gems/colorize/versions/0.8.1">Colorize</a>
 
-#### It looks Like : 
+## Getting Started 
+
 #### main page
 <img src="./src/images/starting_page.png">
 
+Type 'y' then press enter to start.
 #### list page
 <img src="./src/images/list.png">
 
+Type the number of the list you want to see details or 'n' to exit.
 #### detailed information page
 <img src="./src/images/detailed_information.png">
 
+You can start over by typing 'y' and press enter or 'n' to exit.
+You can also click the 'see more info' link to go to the website.
 ### 🗝 Key Skills 🗝
 * Build a CLI application from scratch
 * Use good OO design patterns

@@ -37,6 +37,10 @@ $ require 'best_things_to_do_in_melbourne'
 ```
 $ BestThingsToDoInMelbourne::CLI.new.call
 ```
+Or you can open the source code and do the same :
+```
+$ BestThingsToDoInMelbourne::CLI.new.call
+```
 #### main page
 <img src="./src/images/starting_page.png">
 

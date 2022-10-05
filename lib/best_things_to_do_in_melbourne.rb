@@ -1,14 +1,121 @@
 require 'pry'
 require 'nokogiri'
 require 'open-uri'
+require 'tty-link'
+require 'colorize'
+
 
 module BestThingsToDoInMelbourne
   class CLI
+
+
     def call
+        logo = "
+██████╗ ███████╗███████╗████████╗    ████████╗██╗  ██╗██╗███╗   ██╗ ██████╗ ███████╗            
+██╔══██╗██╔════╝██╔════╝╚══██╔══╝    ╚══██╔══╝██║  ██║██║████╗  ██║██╔════╝ ██╔════╝            
+██████╔╝█████╗  ███████╗   ██║          ██║   ███████║██║██╔██╗ ██║██║  ███╗███████╗            
+██╔══██╗██╔══╝  ╚════██║   ██║          ██║   ██╔══██║██║██║╚██╗██║██║   ██║╚════██║            
+██████╔╝███████╗███████║   ██║          ██║   ██║  ██║██║██║ ╚████║╚██████╔╝███████║            
+╚═════╝ ╚══════╝╚══════╝   ╚═╝          ╚═╝   ╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚══════╝            
+████████╗ ██████╗     ██████╗  ██████╗                                                          
+╚══██╔══╝██╔═══██╗    ██╔══██╗██╔═══██╗                                                         
+   ██║   ██║   ██║    ██║  ██║██║   ██║                                                         
+   ██║   ██║   ██║    ██║  ██║██║   ██║                                                         
+   ██║   ╚██████╔╝    ██████╔╝╚██████╔╝                                                         
+   ╚═╝    ╚═════╝     ╚═════╝  ╚═════╝                                                          
+██╗███╗   ██╗    ███╗   ███╗███████╗██╗     ██████╗  ██████╗ ██╗   ██╗██████╗ ███╗   ██╗███████╗
+██║████╗  ██║    ████╗ ████║██╔════╝██║     ██╔══██╗██╔═══██╗██║   ██║██╔══██╗████╗  ██║██╔════╝
+██║██╔██╗ ██║    ██╔████╔██║█████╗  ██║     ██████╔╝██║   ██║██║   ██║██████╔╝██╔██╗ ██║█████╗  
+██║██║╚██╗██║    ██║╚██╔╝██║██╔══╝  ██║     ██╔══██╗██║   ██║██║   ██║██╔══██╗██║╚██╗██║██╔══╝  
+██║██║ ╚████║    ██║ ╚═╝ ██║███████╗███████╗██████╔╝╚██████╔╝╚██████╔╝██║  ██║██║ ╚████║███████╗
+╚═╝╚═╝  ╚═══╝    ╚═╝     ╚═╝╚══════╝╚══════╝╚═════╝  ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝
+                                                                                                
+"
       Scraper.new.make_things_to_do
-      puts 'Best Things To Do In Melbourne'
+      system "clear"
+      puts logo.yellow
+      start
     end
-    # binding.pry
+
+    def start
+      puts 'Would you like to see list of top 30 best things to do in Melbourne? [y/n]'.colorize(:blue)
+      input = gets.strip
+
+      if input === 'y'
+        print_list
+      elsif input === 'n'
+        puts ''
+        puts ''
+        puts 'Thank you! See you again!'
+        exit
+      else
+        puts ''
+        puts ''
+        puts 'Please type y or n!'
+        puts ''
+        start
+      end
+    end
+
+    def print_list
+      BestThingsToDoInMelbourne::ToDo.all.each do |todo|
+        puts ''
+        puts "#{todo.position} #{todo.title}".yellow
+      end
+      choose
+    end
+
+    def choose
+      puts ''
+      puts ''
+      puts 'Would you like to see more information of any of above?'.light_blue
+      puts ''
+      puts '[ number(1-30) / n ]'.red
+      input = gets.strip
+      if input.to_i <= 31
+        print_todo(input)
+      elsif input === 'n'
+        puts ''
+        puts ''
+        puts 'Thank you! See you again!'.light_blue
+        exit
+      else
+        puts ''
+        puts ''
+        puts 'Please type valid number or n'.red
+        choose
+      end
+    end
+
+    def print_todo(input)
+      todo = BestThingsToDoInMelbourne::ToDo.all[input.to_i - 1]
+      puts ''
+      puts ''
+      puts "******* #{todo.title} *******".green
+      puts ''
+      puts "Category : #{todo.category}".green
+      puts ''
+      puts "Location : #{todo.location}".green
+      puts ''
+      puts 'About'.green
+      puts "#{todo.about}".green
+    #   puts "Open Hours : #{todo.open_hours.empty? ? 'not provided' : todo.open_hours}"
+      puts ''
+      puts TTY::Link.link_to("See more info", "#{todo.url}").blue
+      puts ''
+      puts ''
+      puts 'Would you like to see other things to do again? [y/n]'.light_blue
+
+      input = gets.strip
+      if input === 'y'
+        start
+      elsif input === 'n'
+        puts 'Thank you! See you again!'.light_blue
+        exit
+      else
+        puts 'Type y or n please!'.red
+      end
+    end
   end
 
   class Scraper
@@ -30,7 +137,7 @@ module BestThingsToDoInMelbourne
   end
 
   class BestThingsToDoInMelbourne::ToDo
-    attr_accessor :url, :title, :position, :location, :category, :open_hours, :about, :website
+    attr_accessor :url, :title, :position, :location, :category, :open_hours, :about
 
     @@all = []
 
@@ -39,7 +146,7 @@ module BestThingsToDoInMelbourne
         "https://www.tripadvisor.com.au/#{row.css('a').attribute('href').text}",
         row.css('div.XfVdV').text.gsub(/[\d.]/, ''),
         row.css('span.vAUKO').text,
-        row.css('div.biGQs').text
+        row.css('div.alPVI.eNNhq.PgLKC.tnGGX.yzLvM div.biGQs._P.pZUbB.hmDzD').text.gsub("Open now","")
       )
     end
 
@@ -60,19 +167,21 @@ module BestThingsToDoInMelbourne
     end
 
     def location
-        @location ||=doc.css('div.MJ button.UikNM span.biGQs._P.XWJSj.Wb').text.gsub('Read more',"")
+      @location ||= doc.css('div.MJ button.UikNM span.biGQs._P.XWJSj.Wb').text.gsub('Read more', '')
     end
-    def open_hours
-        @open_hours ||= doc.css('div.biGQs._P.pZUbB.KxBGd').text.match(/(1[012]|[1-9]):[0-5][0-9](\s)(AM|PM)(\s-\s)(1[012]|[1-9]):[0-5][0-9](\s)(AM|PM)/)[0]
-    end
-    def about
-        @about ||=doc.css('div.yNgTB.A div._T.FKffI div.biGQs._P.pZUbB.KxBGd').text
-    end
-    # def website
+
+    # def open_hours
+    #   @open_hours ||= doc.css('div.biGQs._P.pZUbB.KxBGd').text.match(/(1[012]|[1-9]):[0-5][0-9](\s)(AM|PM)(\s-\s)(1[012]|[1-9]):[0-5][0-9](\s)(AM|PM)/)[0]
     # end
-    # @location = location
-    # @open_hours = open_hours
-    # @about = about
+
+    def about
+      @about ||= doc.css('div.A div._T.FKffI div.biGQs._P.pZUbB.KxBGd').text
+    end
+
+    # def website
+    #     @website ||= doc.css('section.vwOfI.nlaXM div.WoBiw a.UikNM._G.B-._S._T.c.G_.P0.wSSLS.wnNQG.raEkE').first.attribute('href').text
+    # end
+
     # @website = website
   end
   binding.pry

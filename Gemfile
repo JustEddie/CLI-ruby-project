@@ -9,3 +9,7 @@
 
 # gem "rspec", "~> 3.0"
 
+gem 'tty-link'
+gem 'nokogiri'
+gem 'open-uri'
+gem 'irb'

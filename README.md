@@ -32,6 +32,9 @@ start irb then start the app by
 $ irb
 ```
 ```
+$ require 'best_things_to_do_in_melbourne'
+```
+```
 $ BestThingsToDoInMelbourne::CLI.new.call
 ```
 #### main page

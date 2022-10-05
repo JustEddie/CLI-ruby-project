@@ -1,6 +1,6 @@
 class BestThingsToDoInMelbourne::Logo
   def self.draw
-    drawing = "
+    skyline = "
 
                                                                                          , /
                                                                     #                    ,//
@@ -43,7 +43,7 @@ class BestThingsToDoInMelbourne::Logo
                               ╚═╝╚═╝  ╚═══╝    ╚═╝     ╚═╝╚══════╝╚══════╝╚═════╝  ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝
 
 "
-    puts drawing.green
+    puts skyline.green
     puts logo.yellow
   end
 end

@@ -3,7 +3,6 @@ require_relative '../best_things_to_do_in_melbourne'
 
 class BestThingsToDoInMelbourne::CLI
   def call
-    
     BestThingsToDoInMelbourne::Scraper.new.make_things_to_do
     system 'clear'
     BestThingsToDoInMelbourne::Logo.draw
@@ -19,7 +18,7 @@ class BestThingsToDoInMelbourne::CLI
     elsif input === 'n'
       puts ''
       puts ''
-      puts 'Thank you! See you again!'.light_blue
+      puts 'Thank you! See you again!'.blue
       exit
     else
       puts ''
@@ -41,16 +40,16 @@ class BestThingsToDoInMelbourne::CLI
   def choose
     puts ''
     puts ''
-    puts 'Would you like to see more information of any of above?'.light_blue
+    puts 'Would you like to see more information of any of above? [ number(1-30) / n ]'.blue
     puts ''
-    puts '[ number(1-30) / n ]'.red
+    puts ''
     input = gets.strip
     if input.to_i <= 30 && input.to_i.to_s == input
       print_todo(input)
     elsif input === 'n'
       puts ''
       puts ''
-      puts 'Thank you! See you again!'.light_blue
+      puts 'Thank you! See you again!'.blue
       exit
     elsif input.to_i > 31 || input != 'n'
       puts ''
@@ -77,7 +76,7 @@ class BestThingsToDoInMelbourne::CLI
     puts TTY::Link.link_to('See more info', "#{todo.url}").blue
     puts ''
     puts ''
-    puts 'Would you like to see other things to do again? [y/n]'.light_blue
+    puts 'Would you like to see other things to do again? [y/n]'.blue
 
     input = gets.strip
     if input === 'y'

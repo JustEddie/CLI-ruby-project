@@ -2,6 +2,8 @@
 
 ### Best Things To Do In Melbourne
 
+#### This CLI app provides a list of 30 best things to do in Melbourne. The data is scraped from Trip Advisor website.
+
 (last updated : 05/10/22)
 ### 💻 Used Stacks 💻
 
@@ -20,6 +22,8 @@
 * <a href="https://rubygems.org/gems/colorize/versions/0.8.1">Colorize</a>
 
 ## Getting Started 
+
+
 
 #### main page
 <img src="./src/images/starting_page.png">

@@ -23,8 +23,15 @@
 
 ## Getting Started 
 
-
-
+To install gem
+```
+$ gem install 'best-things-to-do-in-melbourne'
+```
+start irb then start the app by
+```
+$ irb
+$ BestThingsToDoInMelbourne::CLI.new.call
+```
 #### main page
 <img src="./src/images/starting_page.png">
 

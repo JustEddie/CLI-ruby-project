@@ -18,4 +18,5 @@ Gem::Specification.new do |s|
   s.homepage =
     'https://github.com/JustEddie/CLI-ruby-project'
   s.license = 'MIT'
+  s.executables << "best_things_to_do_in_melbourne.rb"
 end
